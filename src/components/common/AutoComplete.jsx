@@ -31,7 +31,8 @@ class AutoComplete extends React.PureComponent{
                         <Grid key={option?.Address} container {...props} >
                             <Grid item xs={12}><Typography sx={{ fontSize: '1em' }}>{option?.Address?.split(',')[0]}</Typography></Grid>
                             <Grid item xs={12}><Typography>{`${option?.Address}`}</Typography></Grid>
-                        </Grid>)}
+                        </Grid>)
+                    }
                     renderInput={(params) =>
                         <TextField
                             {...params}
@@ -47,9 +48,10 @@ class AutoComplete extends React.PureComponent{
                                 disableUnderline: disableUnderline ?? false,
                             }}
                         />
-                }
-            />
-        </Box>)
+                    }
+                />
+            </Box>
+        )
     }
 }
 

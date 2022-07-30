@@ -12,9 +12,6 @@ import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 
-// mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
-// import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
-
 const ICON_MAPPING = {
   marker: {x: 0, y: 0, width: 128, height: 128, mask: true}
 };
@@ -77,28 +74,11 @@ class DeckGLMap extends React.PureComponent {
                 iconAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png',
                 iconMapping: ICON_MAPPING,
                 getIcon: d => 'marker',
-            
                 sizeScale: 15,
                 getPosition: d => ([ d?.longitude, d?.latitude]),
                 getSize: d => 5,
                 getColor: d => [Math.sqrt(d.exits), 140, 0]
-              }),
-            // new ScatterplotLayer({
-            //     id: 'scatterplot-layer',
-            //     data: filterCctvData,
-            //     pickable: true,
-            //     opacity: 0.8,
-            //     stroked: true,
-            //     filled: true,
-            //     radiusScale: 4,
-            //     radiusMinPixels: 1,
-            //     radiusMaxPixels: 100,
-            //     lineWidthMinPixels: 1,
-            //     getPosition: d => ([ d.longitude, d.latitude]),
-            //     getRadius: d => Math.sqrt(d.exits),
-            //     getFillColor: d => this._getPointColor(d?.thana),
-            //     getLineColor: d => [0, 0, 0]
-            // })
+            })
         ]
         this.setState({layers})
     }
@@ -136,38 +116,27 @@ class DeckGLMap extends React.PureComponent {
             .then( res => res.json())
             .then( res => {
                 const addressList =  res.places
-                // console.log({address:addressList[0]})
                 this.setState({ addressList: addressList })
             })
         }
     }
 
-    // {
-    //     "Address": "M&M, España",
-    //     "city": "Felanich",
-    //     "country": "España",
-    //     "county": "Migjorn",
-    //     "latitude": 39.420082,
-    //     "longitude": 3.27203,
-    //     "name": "M&M",
-    //     "postcode": "07670",
-    //     "state": "Illes Balears",
-    //     "street": null
-    // }
     render() {
-        const { initial_view_state, layers, thana, addressList, selectedAddress } = this.state
-        const { _handleChange, _handleAutoCompInputChange, _handleAutoCompChange } = this
+        const { initial_view_state, layers, addressList, selectedAddress } = this.state
+        const { _handleAutoCompInputChange, _handleAutoCompChange } = this
         return(
             <div style={{display:'flex',flexDirection:'row', width:'100vw', height:'100vh'}}>
                 <div style={{display:'flex',flexDirection:'column', minWidth:'25%'}}>
-                    <Box sx={{ 
-                        display:'flex', 
-                        alignItems:'center',
-                        justifyContent:'center',
-                        p:2,
-                        m:1, 
-                        boxShadow:'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
-                    }}>
+                    <Box 
+                        sx={{ 
+                            display:'flex', 
+                            alignItems:'center',
+                            justifyContent:'center',
+                            p:2,
+                            m:1, 
+                            boxShadow:'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
+                        }}
+                    >
                         <AutoComplete 
                             _handleAutoCompInputChange={_handleAutoCompInputChange} 
                             _handleAutoCompChange = {_handleAutoCompChange} 
