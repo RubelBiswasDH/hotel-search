@@ -1,12 +1,12 @@
 import './App.css';
-import DeckGLMap from './components/DeckGLMap';
+import BkoiGLMap from './components/BkoiGLMap';
 
 function App() {
   return (
     <div>
-      <DeckGLMap/>
+      <BkoiGLMap />
     </div>
   );
 }
 
-export default App;
+export default App
